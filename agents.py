@@ -128,6 +128,7 @@ def TableDrivenAgentProgram(table):
     def program(percept):
         percepts.append(percept)
         action = table.get(tuple(percepts))
+        print(f"TableDrivenAgentProgram: {action}")
         return action
 
     return program
@@ -265,6 +266,7 @@ def ModelBasedVacuumAgent():
 
     def program(percept):
         """Same as ReflexVacuumAgent, except if everything is clean, do NoOp."""
+        print(f"current model: {model}")
         location, status = percept
         model[location] = status  # Update the model here
         if model[loc_A] == model[loc_B] == 'Clean':
@@ -275,6 +277,7 @@ def ModelBasedVacuumAgent():
             return 'Right'
         elif location == loc_B:
             return 'Left'
+        #model[location] = status  # Update the model here
 
     return Agent(program)
 
@@ -335,6 +338,7 @@ class Environment:
             for (agent, action) in zip(self.agents, actions):
                 self.execute_action(agent, action)
             self.exogenous_change()
+            print(f"actions: {actions}") 
 
     def run(self, steps=1000):
         """Run the Environment for given number of time steps."""
