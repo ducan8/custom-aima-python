@@ -39,6 +39,7 @@ import random
 import copy
 import collections
 import numbers
+import time
 
 
 # ______________________________________________________________________________
@@ -284,7 +285,6 @@ def ModelBasedVacuumAgent():
 
 # ______________________________________________________________________________
 
-
 class Environment:
     """Abstract class representing an Environment. 'Real' Environment classes
     inherit from this. Your Environment will typically need to implement:
@@ -331,6 +331,7 @@ class Environment:
         if not self.is_done():
             actions = []
             for agent in self.agents:
+                print(f"[debug]: agent location {agent.location}")
                 if agent.alive:
                     actions.append(agent.program(self.percept(agent)))
                 else:
@@ -339,6 +340,7 @@ class Environment:
                 self.execute_action(agent, action)
             self.exogenous_change()
             print(f"actions: {actions}") 
+            #time.sleep(5)
 
     def run(self, steps=1000):
         """Run the Environment for given number of time steps."""
